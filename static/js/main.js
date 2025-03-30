@@ -43,7 +43,8 @@ var swiper = new Swiper(".mySwiper", {
   },
   pagination: {
     el: ".swiper-pagination",
-    clickable: true
+    clickable: true,
+    dynamicBullets: true,
   },
   spaceBetween: 30,
   navigation: {
@@ -235,7 +236,7 @@ var swiper = new Swiper(".swiperReview", {
   },
   pagination: {
     el: ".swiper-pagination-review",
-    clickable: true
+    clickable: true,
   },
   spaceBetween: 15,
   breakpoints: {
@@ -317,3 +318,100 @@ cookieButton.addEventListener('click', function(){
 });
 
 Fancybox.bind("[data-fancybox]");
+
+const popupOverlays = document.querySelectorAll('.popup__overlay');
+popupOverlays.forEach(over => {
+  over.addEventListener('click', () => {
+    over.closest('.popup').classList.remove('active');
+    document.body.classList.remove('no-scroll');
+  });
+});
+
+const reviewsItems = [
+  {
+    logo: "./static/img/content/review1-logo.png",
+    review: "./static/img/content/review1.png"
+  },
+  {
+    logo: "./static/img/content/review2-logo.png",
+    review: "./static/img/content/review2.png"
+  },
+  {
+    logo: "./static/img/content/review3-logo.png",
+    review: "./static/img/content/review3.png"
+  },
+  {
+    logo: "./static/img/content/review4-logo.jpg",
+    review: "./static/img/content/review4.png"
+  },
+  {
+    logo: "./static/img/content/review5-logo.png",
+    review: "./static/img/content/review5.png"
+  },
+  {
+    logo: "./static/img/content/review6-logo.png",
+    review: "./static/img/content/review6.png"
+  },
+  {
+    logo: "./static/img/content/review7-logo.jpg",
+    review: "./static/img/content/review7.png"
+  },
+  {
+    logo: "./static/img/content/review8-logo.jpg",
+    review: "./static/img/content/review8.png"
+  },
+  {
+    logo: "./static/img/content/review9-logo.png",
+    review: "./static/img/content/review9.png"
+  },
+  {
+    logo: "./static/img/content/review10-logo.png",
+    review: "./static/img/content/review10.png"
+  },
+  {
+    logo: "./static/img/content/review11-logo.png",
+    review: "./static/img/content/review11.png"
+  },
+  {
+    logo: "./static/img/content/review12-logo.png",
+    review: "./static/img/content/review12.png"
+  }
+];
+
+const reviewViews = document.querySelectorAll('[data-review-count]');
+const reviewImg = document.querySelector('#review-img');
+const reviewLogo = document.querySelector('#review-logo');
+
+reviewViews.forEach(btn => {
+  const reviewCount = btn.dataset.reviewCount;
+  const item = reviewsItems[+reviewCount];
+  btn.addEventListener('click', () => {
+    reviewImg.setAttribute('src', item.review);
+    reviewLogo.setAttribute('src', item.logo);
+  })
+});
+
+const prev = document.querySelector('.reviews-modal-prev');
+const next = document.querySelector('.reviews-modal-next');
+
+prev.addEventListener('click', () => {
+  const path = reviewImg.getAttribute('src');
+  let index = reviewsItems.findIndex(item => item.review === path);
+  
+  if(index !== 0){
+    index--;
+    reviewImg.setAttribute('src', reviewsItems[index].review);
+    reviewLogo.setAttribute('src', reviewsItems[index].logo);
+  }
+});
+
+next.addEventListener('click', () => {
+  const path = reviewImg.getAttribute('src');
+  let index = reviewsItems.findIndex(item => item.review === path);
+  
+  if(index !== reviewsItems.length){
+    index++;
+    reviewImg.setAttribute('src', reviewsItems[index].review);
+    reviewLogo.setAttribute('src', reviewsItems[index].logo);
+  }
+});
