@@ -2913,3 +2913,42 @@ input:focus ~ .placeholder, textarea:focus ~ .placeholder {
     height: auto;
   }
 }
+
+.checkbox__icon{
+  position: relative;
+}
+
+.checkbox__icon.plus::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #eb6607;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  animation: pulse 1.5s ease-out 3;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.popup__callback .checkbox__icon::after {
+  border-color: #3b3be9;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+.popup-body{
+  padding: 0 20px;
+  margin: 0 -20px;
+}
